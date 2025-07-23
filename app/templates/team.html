@@ -1,11 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <p>team</p>
-  </body>
-</html>
+{% extends 'base.html' %}
+
+{% block extra_head %}
+    <meta property="og:title" content="Space Explorer Team">
+    <meta property="og:description" content="Meet the passionate team behind Space Explorer">
+{% endblock %}
+
+{% block content %}
+<section class="team-container">
+    <h1>👨‍🚀 Meet the Crew</h1>
+    <p class="team-subtitle">We're a diverse team of space enthusiasts, developers, and educators united by cosmic curiosity.</p>
+    
+    <div class="team-grid">
+        {% for member in team_members %}
+        <div class="team-card">
+            <div class="team-photo">
+                <img src="{{ url_for('static', filename='images/team/' + member.photo) }}" 
+                     alt="{{ member.name }}" loading="lazy">
+                <div class="team-role">{{ member.role }}</div>
+            </div>
+            <div class="team-info">
+                <h3>{{ member.name }}</h3>
+                <p class="team-bio">{{ member.bio }}</p>
+                <div class="team-links">
+                    {% if member.twitter %}
+                    <a href="{{ member.twitter }}" aria-label="Twitter"><span class="icon">🐦</span></a>
+                    {% endif %}
+                    {% if member.github %}
+                    <a href="{{ member.github }}" aria-label="GitHub"><span class="icon">💻</span></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <section class="join-team card">
+        <h2>🛸 Want to Join Our Mission?</h2>
+        <p>We're always looking for passionate people to join our crew. Check our current openings:</p>
+        
+        <div class="open-positions">
+            {% for position in open_positions %}
+            <div class="position">
+                <h3>{{ position.title }}</h3>
+                <div class="position-meta">
+                    <span class="meta-item">📍 {{ position.location }}</span>
+                    <span class="meta-item">🕒 {{ position.type }}</span>
+                </div>
+                <a href="{{ url_for('apply', position_id=position.id) }}" class="apply-button">Apply Now</a>
+            </div>
+            {% else %}
+            <p class="no-positions">No current openings - but feel free to <a href="{{ url_for('contact') }}">send us your details</a>!</p>
+            {% endfor %}
+        </div>
+    </section>
+    
+    <section class="advisors card">
+        <h2>🪐 Advisory Board</h2>
+        <div class="advisors-grid">
+            {% for advisor in advisors %}
+            <div class="advisor">
+                <h3>{{ advisor.name }}</h3>
+                <p class="advisor-title">{{ advisor.title }}</p>
+                <p class="advisor-org">{{ advisor.organization }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</section>
+{% endblock %}

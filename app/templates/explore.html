@@ -1,11 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <p>explore</p>
-  </body>
-</html>
+{% extends 'base.html' %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/explore.css') }}">
+    <script src="{{ url_for('static', filename='js/explore.js') }}" defer></script>
+{% endblock %}
+
+{% block content %}
+<section class="explore-hero">
+    <h1>🚀 Explore the Cosmos</h1>
+    <p class="subtitle">Interactive tools for your space journey</p>
+</section>
+
+<div class="explore-grid">
+    <section class="mission-simulator card">
+        <h2>🛸 Mission Simulator</h2>
+        <p>Plan and simulate space missions with our interactive tool:</p>
+        
+        <div class="simulator-interface">
+            <div class="parameter-selector">
+                <label for="mission-type">Mission Type:</label>
+                <select id="mission-type">
+                    <option value="orbit">Earth Orbit</option>
+                    <option value="moon">Lunar Mission</option>
+                    <option value="mars">Mars Expedition</option>
+                </select>
+                
+                <label for="crew-size">Crew Size:</label>
+                <input type="range" id="crew-size" min="1" max="10" value="3">
+                
+                <button id="launch-sim" class="cta-button">Launch Simulation</button>
+            </div>
+            
+            <div class="simulation-output" aria-live="polite">
+                <!-- Simulation results will appear here -->
+            </div>
+        </div>
+    </section>
+
+    <section class="celestial-bodies card">
+        <h2>🪐 Celestial Database</h2>
+        <div class="search-tool">
+            <input type="text" placeholder="Search planets, stars, galaxies..." id="celestial-search">
+            <button id="search-btn">🔍</button>
+        </div>
+        
+        <div class="body-info-grid">
+            <!-- Dynamically populated with JS -->
+        </div>
+    </section>
+</div>
+
+<section class="api-demo card">
+    <h2>📡 API Demonstration</h2>
+    <p>Try our space API with these sample endpoints:</p>
+    
+    <div class="endpoint-examples">
+        <div class="endpoint">
+            <code>GET /api/planets</code>
+            <button class="try-api" data-endpoint="planets">Try It</button>
+        </div>
+        <div class="endpoint">
+            <code>GET /api/stars/nearby</code>
+            <button class="try-api" data-endpoint="stars">Try It</button>
+        </div>
+    </div>
+    
+    <div class="api-output" id="api-output"></div>
+</section>
+{% endblock %}

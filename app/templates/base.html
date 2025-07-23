@@ -1,16 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Space Explorer - Your portal to cosmic knowledge and exploration">
+    <title>{% block title %}Space Explorer{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Space+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    {% block extra_head %}{% endblock %}
+</head>
 <body class="space-bg">
-  <header>
-    <nav class="nav-bar">
-      <a href="{{ url_for('home') }}">🌍 Home</a>
-      <a href="{{ url_for('dashboard') }}">🛰️ Dashboard</a>
-      <a href="{{ url_for('login') }}">🚪 Login</a>
-      <a href="{{ url_for('signup') }}">🛸 Signup</a>
-    </nav>
-  </header>
+    {% include 'partials/header.html' %}
 
-  <main>{% block content %}{% endblock %}</main>
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
 
-  <footer>
-    <p>🌌 Powered by Space Explorer – Chart your course</p>
-  </footer>
+    {% include 'partials/footer.html' %}
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
 </body>
+</html>
