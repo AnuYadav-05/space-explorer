@@ -1,11 +1,27 @@
+
 from flask import render_template, redirect, url_for, request, flash, session
 from app import app, db
 from app.models import User
 from app.forms import RegisterForm, LoginForm
+from app.gemini import GeminiClient
+
 
 @app.route("/")
 def home():
     return render_template("home.html")
+
+@app.route("/api", methods=["GET", "POST"])
+def api():
+    answer = None
+    if request.method == "POST":
+        question = request.form.get("question")
+        if question:
+            gemini = GeminiClient()
+            try:
+                answer = gemini.ask(question)
+            except Exception as e:
+                answer = f"Error: {e}"
+    return render_template("home.html", answer=answer)
 
 @app.route("/about")
 def about():
