@@ -1,11 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <p>about</p>
-  </body>
-</html>
+{% extends 'base.html' %}
+
+{% block extra_head %}
+    <meta property="og:title" content="About Space Explorer">
+    <meta property="og:description" content="Learn about our mission to make space accessible to all">
+{% endblock %}
+
+{% block content %}
+<section class="about-section">
+    <h1>📖 Our Cosmic Mission</h1>
+    
+    <article class="mission-statement">
+        <h2>🌌 Why We Explore</h2>
+        <p>Space Explorer is an educational platform powered by AI, dedicated to making space exploration accessible to curious minds across the universe.</p>
+        <p>Founded in 2023, we bridge the gap between complex astrophysics and everyday curiosity.</p>
+    </article>
+
+    <div class="about-features">
+        <div class="feature-card">
+            <div class="feature-icon">🔭</div>
+            <h3>AI-Powered Insights</h3>
+            <p>Get accurate, up-to-date space information from our Gemini AI integration</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">🛰️</div>
+            <h3>Interactive Tools</h3>
+            <p>Simulate missions and visualize cosmic phenomena</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">🌎</div>
+            <h3>Global Community</h3>
+            <p>Join thousands of space enthusiasts worldwide</p>
+        </div>
+    </div>
+
+    <section class="timeline">
+        <h2>⏳ Our Journey</h2>
+        <div class="timeline-event">
+            <div class="event-date">2023</div>
+            <div class="event-content">
+                <h3>Launch</h3>
+                <p>Space Explorer goes live with basic AI question-answering</p>
+            </div>
+        </div>
+        <div class="timeline-event">
+            <div class="event-date">2024</div>
+            <div class="event-content">
+                <h3>Mission Simulator</h3>
+                <p>Added interactive mission planning tools</p>
+            </div>
+        </div>
+    </section>
+</section>
+{% endblock %}

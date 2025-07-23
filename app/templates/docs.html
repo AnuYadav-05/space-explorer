@@ -1,11 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <p>docs</p>
-  </body>
-</html>
+{% extends 'base.html' %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/docs.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<section class="docs-container">
+    <aside class="docs-sidebar">
+        <h2>📚 Documentation</h2>
+        <nav class="docs-nav">
+            <div class="nav-section">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="#introduction" class="active">Introduction</a></li>
+                    <li><a href="#quickstart">Quick Start</a></li>
+                    <li><a href="#authentication">Authentication</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-section">
+                <h3>API Reference</h3>
+                <ul>
+                    <li><a href="#planets-api">Planets API</a></li>
+                    <li><a href="#missions-api">Missions API</a></li>
+                    <li><a href="#simulation-api">Simulation API</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-section">
+                <h3>Guides</h3>
+                <ul>
+                    <li><a href="#mission-planning">Mission Planning</a></li>
+                    <li><a href="#data-visualization">Data Visualization</a></li>
+                </ul>
+            </div>
+        </nav>
+    </aside>
+
+    <main class="docs-content">
+        <article id="introduction" class="doc-section">
+            <h2>👋 Introduction</h2>
+            <p>Welcome to the Space Explorer API documentation. Our platform provides programmatic access to space exploration data and simulation tools.</p>
+            
+            <div class="feature-callout">
+                <h3>Key Features</h3>
+                <ul>
+                    <li>Real-time celestial body data</li>
+                    <li>Mission planning and simulation</li>
+                    <li>Historical space mission archives</li>
+                    <li>AI-powered analysis tools</li>
+                </ul>
+            </div>
+        </article>
+
+        <article id="quickstart" class="doc-section">
+            <h2>⚡ Quick Start</h2>
+            <p>Make your first API request in under 2 minutes:</p>
+            
+            <div class="code-block">
+                <pre><code class="language-bash">curl -X GET \
+  https://api.spaceexplorer.ai/v1/planets \
+  -H "Authorization: Bearer YOUR_API_KEY"</code></pre>
+            </div>
+            
+            <p>Example response:</p>
+            
+            <div class="code-block">
+                <pre><code class="language-json">{
+  "data": [
+    {
+      "id": "earth",
+      "name": "Earth",
+      "type": "terrestrial",
+      "diameter_km": 12742,
+      "moons": 1
+    },
+    ...
+  ]
+}</code></pre>
+            </div>
+        </article>
+
+        <article id="authentication" class="doc-section">
+            <h2>🔑 Authentication</h2>
+            <p>All API requests require an API key sent in the Authorization header:</p>
+            
+            <div class="auth-methods">
+                <div class="method-card">
+                    <h3>API Key</h3>
+                    <p>Get your key from the <a href="{{ url_for('dashboard') }}">Dashboard</a> once logged in.</p>
+                    <div class="code-block small">
+                        <pre><code class="language-http">Authorization: Bearer your_api_key_here</code></pre>
+                    </div>
+                </div>
+                
+                <div class="method-card">
+                    <h3>OAuth 2.0</h3>
+                    <p>For advanced integration scenarios:</p>
+                    <div class="code-block small">
+                        <pre><code class="language-http">Authorization: Bearer your_access_token</code></pre>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+</section>
+
+<script>hljs.highlightAll();</script>
+{% endblock %}

@@ -1,11 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <p>contact</p>
-  </body>
-</html>
+{% extends 'base.html' %}
+
+{% block extra_head %}
+    <meta property="og:title" content="Contact Space Explorer">
+    <meta property="og:description" content="Reach out to our team of space enthusiasts">
+{% endblock %}
+
+{% block content %}
+<section class="contact-container">
+    <h1>📡 Contact Mission Control</h1>
+    
+    <div class="contact-methods">
+        <section class="contact-form card">
+            <h2>✉️ Send a Message</h2>
+            <form method="POST" action="{{ url_for('contact') }}">
+                {{ form.hidden_tag() }}
+                
+                <div class="form-group">
+                    <label for="name">Your Name:</label>
+                    {{ form.name(placeholder="Neil Armstrong") }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    {{ form.email(placeholder="astronaut@example.com") }}
+                    {% if form.email.errors %}
+                        <span class="error">{{ form.email.errors[0] }}</span>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">Subject:</label>
+                    {{ form.subject }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    {{ form.message(rows=6, placeholder="Your message to the stars...") }}
+                </div>
+                
+                <div class="form-group">
+                    {{ form.submit(class="cta-button") }}
+                </div>
+            </form>
+        </section>
+
+        <section class="contact-info card">
+            <h2>📍 Find Us</h2>
+            <address>
+                <div class="contact-item">
+                    <span class="icon">📧</span>
+                    <a href="mailto:contact@spaceexplorer.ai">contact@spaceexplorer.ai</a>
+                </div>
+                
+                <div class="contact-item">
+                    <span class="icon">🌐</span>
+                    <a href="https://spaceexplorer.ai/support" target="_blank">Support Portal</a>
+                </div>
+                
+                <div class="contact-item">
+                    <span class="icon">🕒</span>
+                    <p>Response time: 24-48 hours</p>
+                </div>
+            </address>
+            
+            <div class="social-links">
+                <h3>🚀 Follow Our Launch</h3>
+                <div class="social-icons">
+                    <a href="#" aria-label="Twitter"><span class="icon">🐦</span></a>
+                    <a href="#" aria-label="Mastodon"><span class="icon">🦣</span></a>
+                    <a href="#" aria-label="GitHub"><span class="icon">💻</span></a>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+{% endblock %}

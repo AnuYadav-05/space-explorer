@@ -1,11 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <p>dashbord</p>
-  </body>
-</html>
+{% extends 'base.html' %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}" defer></script>
+{% endblock %}
+
+{% block content %}
+<section class="dashboard-header">
+    <h1>🛰️ Mission Dashboard</h1>
+    <p class="welcome-message">Welcome back, Commander {{ current_user.username }}!</p>
+    <div class="mission-patch">
+        <img src="{{ url_for('static', filename='images/user-patches/' + current_user.patch) }}" 
+             alt="Your mission patch" class="patch-image">
+        <p class="mission-stats">Days in space: {{ current_user.days_in_space }}</p>
+    </div>
+</section>
+
+<div class="dashboard-grid">
+    <section class="quick-actions card">
+        <h2>⚡ Quick Actions</h2>
+        <div class="action-buttons">
+            <a href="{{ url_for('system_check') }}" class="action-button">
+                <span class="action-icon">🔧</span>
+                Systems Check
+            </a>
+            <a href="{{ url_for('logs') }}" class="action-button">
+                <span class="action-icon">📓</span>
+                Mission Logs
+            </a>
+            <a href="{{ url_for('new_mission') }}" class="action-button">
+                <span class="action-icon">🛸</span>
+                New Mission
+            </a>
+        </div>
+    </section>
+
+    <section class="recent-activity card">
+        <h2>📅 Recent Activity</h2>
+        <ul class="activity-feed">
+            {% for activity in recent_activities %}
+            <li class="activity-item">
+                <span class="activity-time">{{ activity.time }}</span>
+                <span class="activity-desc">{{ activity.description }}</span>
+            </li>
+            {% else %}
+            <li class="no-activity">No recent activity</li>
+            {% endfor %}
+        </ul>
+    </section>
+</div>
+
+<section class="current-missions card">
+    <h2>🚀 Active Missions</h2>
+    <div class="missions-list">
+        {% for mission in active_missions %}
+        <div class="mission-card">
+            <h3>{{ mission.name }}</h3>
+            <div class="mission-progress">
+                <div class="progress-bar" style="width: {{ mission.progress }}%"></div>
+                <span class="progress-text">{{ mission.progress }}% complete</span>
+            </div>
+            <div class="mission-meta">
+                <span class="meta-item">🕒 {{ mission.days_remaining }} days remaining</span>
+                <span class="meta-item">👨‍🚀 {{ mission.crew_size }} crew</span>
+            </div>
+            <a href="{{ url_for('mission_detail', id=mission.id) }}" class="mission-link">View Details →</a>
+        </div>
+        {% else %}
+        <p class="no-missions">No active missions. <a href="{{ url_for('new_mission') }}">Plan one now!</a></p>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="data-visualization card">
+    <h2>📊 Exploration Analytics</h2>
+    <div class="chart-container">
+        <canvas id="missionsChart"></canvas>
+    </div>
+    <div class="stats-grid">
+        <div class="stat-box">
+            <div class="stat-value">{{ total_missions }}</div>
+            <div class="stat-label">Total Missions</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-value">{{ hours_simulated }}</div>
+            <div class="stat-label">Hours Simulated</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-value">{{ celestial_bodies }}</div>
+            <div class="stat-label">Celestial Bodies</div>
+        </div>
+    </div>
+</section>
+{% endblock %}
