@@ -1,17 +1,25 @@
-
 from flask import render_template, redirect, url_for, request, flash, session
 from app import app, db
 from app.models import User
 from app.forms import RegisterForm, LoginForm
-from app.gemini import GeminiClient
+
+from app.Gemini import GeminiClient
+from app.NasaApod import NasaAPODClient
+from app.NasaNeo import NasaNeoClient
+from app.MarsRover import MarsRoverClient
 
 
 @app.route("/")
 def home():
     return render_template("home.html")
 
-@app.route("/api", methods=["GET", "POST"])
-def api():
+
+@app.route("/api/links")
+def api_links():
+    return render_template("api_links.html")
+
+@app.route("/api/gem", methods=["GET", "POST"])
+def api_gem():
     answer = None
     if request.method == "POST":
         question = request.form.get("question")
@@ -21,7 +29,43 @@ def api():
                 answer = gemini.ask(question)
             except Exception as e:
                 answer = f"Error: {e}"
-    return render_template("home.html", answer=answer)
+    return render_template("gemini_test.html", answer=answer)
+
+
+@app.route("/api/nasa/apod", methods=["GET", "POST"])
+def api_nasa_apod():
+    apod_data = None
+    if request.method == "POST":
+        date = request.form.get("date")
+        apod_client = NasaAPODClient()
+        apod_data = apod_client.get_apod(date)
+    return render_template("apod_test.html", apod=apod_data)
+
+
+@app.route("/api/nasa/neo", methods=["GET", "POST"])
+def api_nasa_neo():
+    neo_data = None
+    if request.method == "POST":
+        start_date = request.form.get("start_date")
+        end_date = request.form.get("end_date")
+        neo_client = NasaNeoClient()
+        neo_data = neo_client.get_neo_feed(start_date, end_date)
+    return render_template("neo_test.html", neo=neo_data)
+
+
+@app.route("/api/nasa/rover", methods=["GET", "POST"])
+def api_nasa_rover():
+    rover_data = None
+    if request.method == "POST":
+        rover = request.form.get("rover", "curiosity")
+        sol = request.form.get("sol", 1000)
+        camera = request.form.get("camera")
+        rover_client = MarsRoverClient()
+        rover_data = rover_client.get_photos(rover, sol, camera)
+    return render_template("rover_test.html", rover=rover_data)
+
+
+
 
 @app.route("/about")
 def about():
