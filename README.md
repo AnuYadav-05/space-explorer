@@ -65,7 +65,12 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-5. Run the Flask app:
+5. Populate the DB with tables (Only for the first time you setup)
+```bash
+python GenDBTables.py
+```
+
+6. Run the Flask app:
 
 ```bash
 python run.py
