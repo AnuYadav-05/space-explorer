@@ -9,6 +9,7 @@ env/
 ENV/
 .venv/
 .ENV/
+web/
 
 # Flask instance folder
 instance/
