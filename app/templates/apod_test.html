@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NASA APOD Test</title>
+</head>
+<body>
+    <h1>NASA Astronomy Picture of the Day</h1>
+    <form method="POST">
+        <label for="date">Date (YYYY-MM-DD):</label>
+        <input type="text" name="date" id="date" placeholder="Optional">
+        <button type="submit">Get APOD</button>
+    </form>
+    {% if apod %}
+      <div style="margin-top:20px; padding:10px; border:1px solid #ccc; background:#f9f9f9;">
+        <h2>{{ apod.title }}</h2>
+        <p><strong>Date:</strong> {{ apod.date }}</p>
+        {% if apod.media_type == 'image' %}
+          <img src="{{ apod.url }}" alt="APOD Image" style="max-width:100%;"><br>
+        {% endif %}
+        <p>{{ apod.explanation }}</p>
+      </div>
+    {% endif %}
+</body>
+</html>
