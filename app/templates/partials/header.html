@@ -1,24 +1,61 @@
+<!-- templates/partials/header.html -->
 <nav class="nav-bar">
-    <div class="nav-brand">
-        <a href="{{ url_for('home') }}" class="logo">🚀 Space Explorer</a>
-        <button class="mobile-menu-toggle" aria-label="Toggle menu">☰</button>
-    </div>
-    
-    <div class="nav-links">
-        <a href="{{ url_for('home') }}" class="{% if request.endpoint == 'home' %}active{% endif %}">🌍 Home</a>
-        <a href="{{ url_for('dashboard') }}" class="{% if request.endpoint == 'dashboard' %}active{% endif %}">🛰️ Dashboard</a>
-        <a href="{{ url_for('explore') }}" class="{% if request.endpoint == 'explore' %}active{% endif %}">🚀 Explore</a>
-        <a href="{{ url_for('docs') }}" class="{% if request.endpoint == 'docs' %}active{% endif %}">📘 Docs</a>
-        <a href="{{ url_for('team') }}" class="{% if request.endpoint == 'team' %}active{% endif %}">👨‍🚀 Team</a>
-        <a href="{{ url_for('contact') }}" class="{% if request.endpoint == 'contact' %}active{% endif %}">📡 Contact</a>
-        
-        <div class="auth-links">
-            {% if current_user.is_authenticated %}
-                <a href="{{ url_for('logout') }}" class="logout-btn">🔓 Logout</a>
-            {% else %}
-                <a href="{{ url_for('login') }}" class="login-btn">🚪 Login</a>
-                <a href="{{ url_for('signup') }}" class="signup-btn">🛸 Signup</a>
-            {% endif %}
-        </div>
-    </div>
+  <div class="nav-brand">
+    <a href="{{ url_for('home') }}" class="logo">🚀 Space Explorer</a>
+    <button class="mobile-menu-toggle" aria-label="Toggle menu">☰</button>
+  </div>
+
+  <ul class="nav-links">
+    <li>
+      <a
+        href="{{ url_for('home') }}"
+        class="{% if request.endpoint == 'home' %}active{% endif %}"
+        >🌍 Home</a
+      >
+    </li>
+    <li>
+      <a
+        href="{{ url_for('dashboard') }}"
+        class="{% if request.endpoint == 'dashboard' %}active{% endif %}"
+        >🛰️ Dashboard</a
+      >
+    </li>
+    <li>
+      <a
+        href="{{ url_for('explore') }}"
+        class="{% if request.endpoint == 'explore' %}active{% endif %}"
+        >🚀 Explore</a
+      >
+    </li>
+    <li>
+      <a
+        href="{{ url_for('docs') }}"
+        class="{% if request.endpoint == 'docs' %}active{% endif %}"
+        >📘 Docs</a
+      >
+    </li>
+    <li>
+      <a
+        href="{{ url_for('team') }}"
+        class="{% if request.endpoint == 'team' %}active{% endif %}"
+        >👨‍🚀 Team</a
+      >
+    </li>
+    <li>
+      <a
+        href="{{ url_for('contact') }}"
+        class="{% if request.endpoint == 'contact' %}active{% endif %}"
+        >📡 Contact</a
+      >
+    </li>
+  </ul>
+
+  <div class="auth-links">
+    {% if 'user_id' in session %}
+    <a href="{{ url_for('logout') }}" class="logout-btn">🔓 Logout</a>
+    {% else %}
+    <a href="{{ url_for('login') }}" class="login-btn">🚪 Login</a>
+    <a href="{{ url_for('signup') }}" class="signup-btn">🛸 Signup</a>
+    {% endif %}
+  </div>
 </nav>

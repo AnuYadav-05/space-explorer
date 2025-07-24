@@ -1,0 +1,17 @@
+/* docs.css */
+
+.docs {
+  padding: 30px;
+  line-height: 1.6;
+}
+
+.docs h1,
+.docs h2 {
+  color: #4dc9ff;
+  margin-bottom: 10px;
+}
+
+.docs p,
+.docs li {
+  margin-bottom: 10px;
+}

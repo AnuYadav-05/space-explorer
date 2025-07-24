@@ -1,11 +1,19 @@
-<footer>
-    <div class="footer-content">
-        <p>🌌 Powered by Space Explorer – Chart your course among the stars</p>
-        <div class="footer-links">
-            <a href="{{ url_for('privacy') }}">Privacy Policy</a>
-            <a href="{{ url_for('terms') }}">Terms of Service</a>
-            <a href="{{ url_for('sitemap') }}">Sitemap</a>
-        </div>
-        <p class="copyright">&copy; {{ now.year }} Space Explorer. All rights reserved.</p>
-    </div>
+<!-- templates/partials/footer.html -->
+<footer class="site-footer">
+  <div class="footer-content">
+    <p>
+      🌌 Powered by <strong>Space Explorer</strong> – Chart your course among
+      the stars
+    </p>
+    <p class="footer-links">
+      <a href="{{ url_for('home') }}">Home</a> |
+      <a href="{{ url_for('explore') }}">Explore</a> |
+      <a href="{{ url_for('docs') }}">Docs</a> |
+      <a href="{{ url_for('team') }}">Team</a> |
+      <a href="{{ url_for('contact') }}">Contact</a>
+    </p>
+    <p class="copyright">
+      © {{ current_year if current_year is defined else "2025" }} Space Explorer
+    </p>
+  </div>
 </footer>

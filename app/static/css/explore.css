@@ -1,0 +1,25 @@
+/* explore.css */
+
+.explore-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.explore-card {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid #4dc9ff;
+  width: 280px;
+  border-radius: 12px;
+  padding: 20px;
+  color: #ffffff;
+  transition: 0.3s;
+  box-shadow: 0 0 12px #4dc9ff33;
+}
+
+.explore-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #4dc9ff66;
+}

@@ -1,33 +1,44 @@
+<!-- templates/base.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Space Explorer - Your portal to cosmic knowledge and exploration">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Space Explorer - Your portal to cosmic knowledge and exploration"
+    />
     <title>{% block title %}Space Explorer{% endblock %}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Space+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Space+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='images/favicon.ico') }}"
+      type="image/x-icon"
+    />
     {% block extra_head %}{% endblock %}
-</head>
-<body class="space-bg">
+  </head>
+  <body class="space-bg">
     {% include 'partials/header.html' %}
 
     <main class="container">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <div class="flash-messages">
-                    {% for category, message in messages %}
-                        <div class="flash {{ category }}">{{ message }}</div>
-                    {% endfor %}
-                </div>
-            {% endif %}
-        {% endwith %}
-        
-        {% block content %}{% endblock %}
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %}
+      <div class="flash-messages">
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %} {% endwith %} {% block content %}{% endblock %}
     </main>
 
     {% include 'partials/footer.html' %}
     <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
-</body>
+  </body>
 </html>
